@@ -3,8 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -57,12 +58,13 @@ body {
 	</div>
 	<div id="main" class="container">
 		<h3>Tell your friends what you think...</h3>
-		<form action="" method="POST">
-			<textarea rows="3" cols="50">I think...</textarea>
-		</form>
-		<h2>A global community of friends and strangers spitting out
+		<sf:form action="/spitter-web/spittle/publish" method="POST" modelAttribute="newSpittle">
+			<sf:textarea path="text" rows="3" cols="50"/><br/>
+			<input class="btn" type="Submit" value="Publish">
+		</sf:form>
+		<!-- <h2>A global community of friends and strangers spitting out
 			their inner-most and personal thoughts on the web for everyone else
-			to see.</h2>
+			to see.</h2> -->
 		<h3>Look at what these people are spitting right now...</h3>
 		<c:if test="${not empty spittles}">
 			<c:forEach var="spittle" items="${spittles}">

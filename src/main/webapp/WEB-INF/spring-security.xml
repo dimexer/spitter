@@ -13,6 +13,7 @@
 		<logout logout-url="/static/j_spring_security_logout" />
 		<intercept-url pattern="/|/home" access="isAuthenticated()"/>
 		<intercept-url pattern="/spitter/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/spittle/publish" access="isAuthenticated()" />
 	</http>
 
 	<authentication-manager>

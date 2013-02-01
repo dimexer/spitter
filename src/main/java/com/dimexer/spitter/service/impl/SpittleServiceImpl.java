@@ -1,19 +1,11 @@
 package com.dimexer.spitter.service.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.dimexer.spitter.model.Spitter;
@@ -25,54 +17,24 @@ public class SpittleServiceImpl implements SpittleService {
 
 	private TransactionTemplate txTemplate;
 
-	/*public final void insertSpittle(Spittle spittle) {
+	public final void insertSpittle(Spittle spittle) {
 		this.jdbcTemplate.update(
 				"insert into spittle values (null, ?, ?, now())",
-				spittle.getText(), spittle.getSpitterId());
+				spittle.getText(), spittle.getSpitter().getId());
+	}
 
-	}*/
-
-	/*public Spittle getSpittleById(Integer id) {
-		Object[] a = new Object[1];
-		a[0] = id;
-		Spittle res = null;
-		try {
-			res = jdbcTemplate.queryForObject(
-					"select * from spittle where id=?", a,
-
-					new ParameterizedRowMapper<Spittle>() {
-
-						public Spittle mapRow(ResultSet rs, int arg1)
-								throws SQLException {
-
-							Spittle found = new Spittle();
-							found.setId(rs.getInt(1));
-							found.setText(rs.getString(2));
-							found.setSpitterId(rs.getInt(3));
-							found.setTime(rs.getTimestamp(4));
-							return found;
-						}
-					});
-		} catch (EmptyResultDataAccessException e) {
-			System.err.println("No spittle with id " + id + " found!");
-			res = null;
-		}
-
-		return res;
-	} */
-
-	public List<Spittle> getRecentSpittles(int size) {
+	public List<Spittle> getSpittleFromLastLogin(Spitter spitter, int size) {
 		String query = null;
 		Object[] params = null;
-		Spitter spitter = (Spitter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(spitter == null){
-			query="select * from spittle l join spitter r on l.spitter_id = r.id order by time desc limit";
+			query="select * from spittle l join spitter r on l.spitter_id = r.id order by time desc limit ?";
 			params = new Object[1];
 			params[0]=size;
 		}
 		else{
 			query="select * from spittle l join spitter r on l.spitter_id = r.id where l.time > ? order by time desc limit ?";
 			params = new Object[2];
+			System.out.println(spitter.getLastLogin());
 			params[0]=spitter.getLastLogin();
 			params[1]=size;
 		}
@@ -88,7 +50,8 @@ public class SpittleServiceImpl implements SpittleService {
 			a.setText((String) row.get("text"));
 			a.setTime((Date) row.get("time"));
 			//a.setSpitterId((Integer) row.get("spitter_id"));
-			Spitter sp = new Spitter((String)row.get("username"), (String)row.get("password"), (String)row.get("full_name"), (String)row.get("email"));
+			Spitter sp = new Spitter((Integer)row.get("id"), (String)row.get("username"), (String)row.get("password"), (String)row.get("full_name"), (String)row.get("email"), (Date)row.get("lastLogin"));
+			
 			a.setSpitter(sp);
 			
 			res.add(a);

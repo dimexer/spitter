@@ -26,12 +26,14 @@ public class Spitter extends User {
 
 	private Date lastLogin;
 	
-	public Spitter(String uname, String pass, String fName, String email) {
+	public Spitter(int id, String uname, String pass, String fName, String email, Date lastLogin) {
 		super(uname, pass, true, true, true, true, new ArrayList());
-		this.username = uname;
-		this.password = pass;
+		this.id=id;
 		this.fullName = fName;
+		this.username=uname;
+		this.password=pass;
 		this.email=email;
+		this.lastLogin=lastLogin;
 	}
 	
 	public Spitter(){

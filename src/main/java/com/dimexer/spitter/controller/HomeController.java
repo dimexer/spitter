@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dimexer.spitter.model.Spitter;
+import com.dimexer.spitter.model.Spittle;
 import com.dimexer.spitter.service.SpittleService;
 
 @Controller
@@ -28,8 +29,11 @@ public class HomeController {
 
 	@RequestMapping({"/", "/home" })
 	public String showHomePage(Map<String, Object> model) {
+		Spittle spittle = new Spittle();
+		model.put("newSpittle", spittle);
+		Spitter spitter = (Spitter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.put("spittles",
-				spittleService.getRecentSpittles(DEFAULT_SPITTERS_PER_PAGE));
+				spittleService.getSpittleFromLastLogin(spitter, DEFAULT_SPITTERS_PER_PAGE));
 		return "home";
 	}
 

@@ -37,20 +37,22 @@ public class SpitterServiceImpl extends NamedParameterJdbcDaoSupport implements
 					public Spitter mapRow(ResultSet arg0, int arg1)
 							throws SQLException {
 
-						Spitter a = new Spitter(arg0.getString(2),
-								arg0.getString(3), arg0.getString(4), arg0
-										.getString(5));
-						a.setLastLogin(arg0.getDate(6));
+						Spitter a = new Spitter(arg0.getInt(1), arg0
+								.getString(2), arg0.getString(3), arg0
+								.getString(4), arg0.getString(5), arg0
+								.getDate(6));
 						return a;
 					}
 				});
 	}
-	
-	public void updateLastLoginTime(Spitter spitter){
+
+	public void updateLastLoginTime(Spitter spitter) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("username", spitter.getUsername());
-		int res = getNamedParameterJdbcTemplate().update("update spitter s set s.last_login=now() where s.username = :username", params);
-		if(res == 0)
+		int res = getNamedParameterJdbcTemplate()
+				.update("update spitter s set s.last_login=now() where s.username = :username",
+						params);
+		if (res == 0)
 			System.out.println("WANING!!! No Spitter with the requested id found!");
 	}
 }

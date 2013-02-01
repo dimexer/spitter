@@ -14,10 +14,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String arg0)
 			throws UsernameNotFoundException {
 		Spitter user = spitterService.findSpitterByUsername(arg0);
-		if (user == null)
+		if (user == null){
 			throw new UsernameNotFoundException(
 					"No user with such username found!");
 		
+		}
 		spitterService.updateLastLoginTime(user);
 		return user;
 	}
