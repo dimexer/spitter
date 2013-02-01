@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://springframework.org/schema/beans/spring-beans-3.1.xsd
+							http://www.springframework.org/schema/security
+							http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<http auto-config="true" path-type="regex" use-expressions="true">
+		<form-login default-target-url="/home" 
+					login-processing-url="/static/j_spring_security_check"
+					login-page="/login" authentication-failure-url="/login?login_error=t" />
+		<logout logout-url="/static/j_spring_security_logout" />
+		<intercept-url pattern="/|/home" access="isAuthenticated()"/>
+		<intercept-url pattern="/spitter/edit" access="isAuthenticated()" />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="customerUserService" />
+	</authentication-manager>
+
+	<beans:bean id="customerUserService"
+		class="com.dimexer.spitter.service.impl.CustomUserDetailsService">
+		<beans:property name="spitterService" ref="spitterService" />
+	</beans:bean>
+
+	<beans:bean id="webExpressionHandler"
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+</beans:beans>
