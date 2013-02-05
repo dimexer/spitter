@@ -1,7 +1,65 @@
 @CHARSET "UTF-8";
 
-.login-img{
-	display:block;
+small {
+	color: #DDDDDD;
+}
+
+.login-img {
+	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.left {
+	width: 200px;
+	float: left;
+}
+
+.right {
+	width: 200px;
+	float: left;
+}
+
+.navi {
+	width: 100%;
+}
+
+.spittles, .spitterInfo {
+	border: 1px solid #DDDDDD;
+	border-radius: 5px 5px 5px 5px;
+	float: left;
+	margin-left: 15px;
+}
+
+.spitterInfo{
+	border: 1px solid #DDDDDD;
+	border-radius: 5px 5px 5px 5px;
+	float: left;
+	margin-left: 15px;
+	margin-bottom: 15px;
+	width:400px;
+	padding: 5px;
+}
+
+.spittles>ul {
+	list-style-type: none;
+	margin: 0px;
+}
+
+.spittles>ul>li {
+	border-top: 1px solid #DDDDDD;
+	margin-top: -1px;
+}
+
+.spittles>ul>li:HOVER{
+	background-color: #EEEEEE;
+}
+
+.spitterListText {
+	width: 400px;
+	padding: 5px;
+}
+
+.spitterListText .spittle-header {
+	width: 100%;
 }

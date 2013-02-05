@@ -8,4 +8,6 @@ public interface SpitterService {
 	public Spitter findSpitterByUsername(String username);
 	
 	public void updateLastLoginTime(Spitter spitter);
+	
+	public void addFollower(Spitter target, Spitter follower);
 }

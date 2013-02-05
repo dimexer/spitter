@@ -21,7 +21,7 @@ public class SpitterServiceImpl extends NamedParameterJdbcDaoSupport implements
 		paramMap.put("fullName", spitter.getFullName());
 		paramMap.put("email", spitter.getEmail());
 		getNamedParameterJdbcTemplate()
-				.update("insert into spitter values(null, :username, :password, :fullName, :email)",
+				.update("insert into spitter values(null, :username, :password, :fullName, :email, now())",
 						paramMap);
 		// TODO: return spitter id
 		return 0;
@@ -54,5 +54,15 @@ public class SpitterServiceImpl extends NamedParameterJdbcDaoSupport implements
 						params);
 		if (res == 0)
 			System.out.println("WANING!!! No Spitter with the requested id found!");
+	}
+	
+	public void addFollower(Spitter target, Spitter follower) {
+		if(target == null || follower == null)
+			return;
+		String query = "insert into followers values(:followedId, :followerId)";
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("followedId", String.valueOf(target.getId()));
+		params.put("followerId", String.valueOf(follower.getId()));
+		getNamedParameterJdbcTemplate().update(query, params);
 	}
 }

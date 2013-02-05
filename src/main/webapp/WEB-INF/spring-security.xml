@@ -6,13 +6,18 @@
 							http://www.springframework.org/schema/security
 							http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<http auto-config="true" path-type="regex" use-expressions="true">
-		<form-login default-target-url="/home" 
-					login-processing-url="/static/j_spring_security_check"
-					login-page="/login" authentication-failure-url="/login?login_error=t" />
+	<http auto-config="true" path-type="regex" use-expressions="true"
+		access-denied-page="/home">
+		<form-login default-target-url="/home"
+			login-processing-url="/static/j_spring_security_check" login-page="/login"
+			authentication-failure-url="/login?login_error=t" />
+			
 		<logout logout-url="/static/j_spring_security_logout" />
-		<intercept-url pattern="/|/home" access="isAuthenticated()"/>
+		
+		<intercept-url pattern="/|/home" access="isAuthenticated()" />
+		<intercept-url pattern="/login" access="isAnonymous()" />
 		<intercept-url pattern="/spitter/edit" access="isAuthenticated()" />
+		<intercept-url pattern="/spitter/new" access="isAnonymous()" />
 		<intercept-url pattern="/spittle/publish" access="isAuthenticated()" />
 	</http>
 

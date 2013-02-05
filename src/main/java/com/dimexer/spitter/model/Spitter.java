@@ -1,14 +1,17 @@
 package com.dimexer.spitter.model;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class Spitter extends User {
+public class Spitter implements UserDetails{
+	private static final long serialVersionUID = 1L;
+
 	private int id;
 
 	@Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long!")
@@ -27,7 +30,7 @@ public class Spitter extends User {
 	private Date lastLogin;
 	
 	public Spitter(int id, String uname, String pass, String fName, String email, Date lastLogin) {
-		super(uname, pass, true, true, true, true, new ArrayList());
+		//super(uname, pass, true, true, true, true, new ArrayList());
 		this.id=id;
 		this.fullName = fName;
 		this.username=uname;
@@ -37,7 +40,7 @@ public class Spitter extends User {
 	}
 	
 	public Spitter(){
-		super(null, null, new ArrayList());
+		//super(null, null, new ArrayList());
 	}
 
 	public String getUsername() {
@@ -82,5 +85,25 @@ public class Spitter extends User {
 
 	public void setLastLogin(Date lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	public boolean isEnabled() {
+		return true;
 	}
 }

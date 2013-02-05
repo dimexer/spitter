@@ -15,12 +15,25 @@
 	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" />
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+
+<style>
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+</style>
 </head>
+
 <body>
+	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 	<div id="main" class="container">
 		<h2>Create a free Spitter account</h2>
-		<sf:errors path="fullName" cssStyle="color:red;"/>
 		<sf:form method="POST" modelAttribute="spitter">
+		<sf:errors path="*" cssStyle="color:red;"/>
 			<fieldset>
 				<table cellspacing="0">
 					<tr>

@@ -2,6 +2,7 @@ package com.dimexer.spitter.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,6 @@ public class SpittleServiceImpl implements SpittleService {
 		else{
 			query="select * from spittle l join spitter r on l.spitter_id = r.id where l.time > ? order by time desc limit ?";
 			params = new Object[2];
-			System.out.println(spitter.getLastLogin());
 			params[0]=spitter.getLastLogin();
 			params[1]=size;
 		}
@@ -60,6 +60,27 @@ public class SpittleServiceImpl implements SpittleService {
 		return res;
 	}
 
+	public List<Spittle> loadSpittlesForSpitter(Spitter spitter) {
+		String query = "select * from spittle where spitter_id=? order by time desc";
+		Object[] params = new Object[1];
+		params[0]=spitter.getId();
+		List<Map<String, Object>> queryRes = jdbcTemplate.queryForList(query, params);
+		
+		List<Spittle> res = new LinkedList<Spittle>();
+		
+		for(Map<String, Object> row : queryRes){
+			Spittle a = new Spittle();
+			a.setId((Integer) row.get("id"));
+			a.setText((String) row.get("text"));
+			a.setTime((Date) row.get("time"));
+			a.setSpitter(spitter);
+			
+			res.add(a);
+		}
+		
+		return res;
+	}
+	
 	/*
 	 * public void saveinTransaction(final SpitterDAO dao, final Spitter
 	 * spitter) { txTemplate.execute(new TransactionCallback<Object>() {

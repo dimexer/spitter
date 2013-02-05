@@ -67,8 +67,10 @@ body {
 			</label>
 			<button class="btn btn-large btn-primary" type="submit">Sign
 				in</button><br/>
-			<a href="/register">Create new account</a><br/>
-			<a href="/pwRecover">Forgotten password</a>
+			<div style="margin-top:5px;">
+				<a href="<%=request.getContextPath()%>/spitter/edit?new">Create new account</a><br/>
+				<a href="/pwRecover">Forgotten password</a>
+			</div>
 		</form>
 	</div>
 </body>
