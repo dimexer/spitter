@@ -2,9 +2,16 @@ package com.dimexer.spitter.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Spittle {
 	private Integer id;
+	
+	@Size(min=1, message="What do you mean???")
 	private String text;
+	
+	@NotNull
 	private Spitter spitter;
 	private Date time;
 

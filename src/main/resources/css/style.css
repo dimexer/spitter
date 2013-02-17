@@ -17,7 +17,7 @@ small {
 
 .right {
 	width: 200px;
-	float: left;
+	float: right;
 }
 
 .navi {
@@ -62,4 +62,8 @@ small {
 
 .spitterListText .spittle-header {
 	width: 100%;
+}
+
+.rightElements{
+	text-align: right;
 }

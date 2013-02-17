@@ -1,5 +1,7 @@
 package com.dimexer.spitter.service;
 
+import java.util.List;
+
 import com.dimexer.spitter.model.Spitter;
 
 public interface SpitterService {
@@ -10,4 +12,6 @@ public interface SpitterService {
 	public void updateLastLoginTime(Spitter spitter);
 	
 	public void addFollower(Spitter target, Spitter follower);
+	
+	public List<Integer> loadFollwedSpittersIds(Spitter spitter);
 }

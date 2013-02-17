@@ -1,10 +1,13 @@
 package com.dimexer.spitter.controller;
 
+import java.security.Principal;
 import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,12 +31,11 @@ public class HomeController {
 	}
 
 	@RequestMapping({"/", "/home" })
-	public String showHomePage(Map<String, Object> model) {
+	public String showHomePage(Map<String, Object> model, Principal p) {
 		Spittle spittle = new Spittle();
 		model.put("newSpittle", spittle);
-		Spitter spitter = (Spitter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		model.put("spittles",
-				spittleService.getSpittleFromLastLogin(spitter, DEFAULT_SPITTERS_PER_PAGE));
+		UserDetails activeUser = (UserDetails)((Authentication)p).getPrincipal();
+		model.put("spittles", spittleService.getSpittleFromLastLogin((Spitter)activeUser, DEFAULT_SPITTERS_PER_PAGE));
 		return "home";
 	}
 

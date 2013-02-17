@@ -27,6 +27,7 @@
 				<sec:authorize access="isAnonymous()">
 					<p class="navbar-text pull-right">
 						<a href="<%=request.getContextPath()%>/login">Login</a>
+						<a href="<%=request.getContextPath()%>/spitter/new">Register</a>
 					</p>
 				</sec:authorize>
 				<ul class="nav">

@@ -6,11 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import com.dimexer.spitter.model.Spitter;
 import com.dimexer.spitter.model.Spittle;
+import com.dimexer.spitter.service.SpitterService;
 import com.dimexer.spitter.service.SpittleService;
 
 public class SpittleServiceImpl implements SpittleService {
@@ -18,6 +20,10 @@ public class SpittleServiceImpl implements SpittleService {
 
 	private TransactionTemplate txTemplate;
 
+	@Autowired
+	private SpitterService spitterService;
+	
+	
 	public final void insertSpittle(Spittle spittle) {
 		this.jdbcTemplate.update(
 				"insert into spittle values (null, ?, ?, now())",
@@ -25,6 +31,10 @@ public class SpittleServiceImpl implements SpittleService {
 	}
 
 	public List<Spittle> getSpittleFromLastLogin(Spitter spitter, int size) {
+		List<Integer> followers = spitterService.loadFollwedSpittersIds(spitter);
+		for(int a : followers){
+			System.out.println("Follower:" + a);
+		}
 		String query = null;
 		Object[] params = null;
 		if(spitter == null){
@@ -81,17 +91,6 @@ public class SpittleServiceImpl implements SpittleService {
 		return res;
 	}
 	
-	/*
-	 * public void saveinTransaction(final SpitterDAO dao, final Spitter
-	 * spitter) { txTemplate.execute(new TransactionCallback<Object>() {
-	 * 
-	 * @Override public Object doInTransaction(TransactionStatus arg0) { try {
-	 * dao.insertSpitter(spitter); } catch (RuntimeException e) {
-	 * e.printStackTrace(); } return new Object(); }
-	 * 
-	 * }); }
-	 */
-
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
@@ -106,6 +105,14 @@ public class SpittleServiceImpl implements SpittleService {
 
 	public void setTxTemplate(TransactionTemplate txTemplate) {
 		this.txTemplate = txTemplate;
+	}
+
+	public SpitterService getSpitterService() {
+		return spitterService;
+	}
+
+	public void setSpitterService(SpitterService spitterService) {
+		this.spitterService = spitterService;
 	}
 
 }

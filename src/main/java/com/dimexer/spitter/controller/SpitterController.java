@@ -34,12 +34,6 @@ public class SpitterController {
 	public SpitterController() {
 	}
 
-	@RequestMapping(value = "/spitter/edit", method = RequestMethod.GET)
-	public String loadSpitterProfile(Model model) {
-		model.addAttribute("spitter", new Spitter());
-		return "spitter/edit";
-	}
-	
 	@RequestMapping(value = "/spitter/new", method = RequestMethod.GET)
 	public String createFormObject(Model model) {
 		model.addAttribute("spitter", new Spitter());

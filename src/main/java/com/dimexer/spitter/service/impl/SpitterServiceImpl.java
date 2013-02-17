@@ -2,7 +2,9 @@ package com.dimexer.spitter.service.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +16,13 @@ import com.dimexer.spitter.service.SpitterService;
 public class SpitterServiceImpl extends NamedParameterJdbcDaoSupport implements
 		SpitterService {
 
+	public List<Integer> loadFollwedSpittersIds(Spitter spitter){
+		Map<String, Integer> params = new HashMap<String, Integer>();
+		params.put("spitterId", spitter.getId());
+		return getNamedParameterJdbcTemplate().queryForList("select followed_id from followers where following_id=:spitterId", params, Integer.class);
+		
+	}
+	
 	public int addSpitter(Spitter spitter) {
 		Map<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("username", spitter.getUsername());

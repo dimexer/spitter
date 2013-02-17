@@ -47,7 +47,7 @@ body {
 		<div class="spitterInfo">
 			<h3><c:out value="${spitter.fullName}" /></h3>
 			<c:out value="@${spitter.username}" /><br/>
-			<sf:form  method="POST" action="/spitter-web/spitter/${spitter.username}?follow">
+			<sf:form cssClass="rightElements"  method="POST" action="/spitter-web/spitter/${spitter.username}?follow">
 				<button class="btn">Follow ${spitter.username}</button>
 			</sf:form>
 		</div>
