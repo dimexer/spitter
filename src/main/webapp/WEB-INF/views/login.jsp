@@ -68,7 +68,7 @@ body {
 			<button class="btn btn-large btn-primary" type="submit">Sign
 				in</button><br/>
 			<div style="margin-top:5px;">
-				<a href="<%=request.getContextPath()%>/spitter/edit?new">Create new account</a><br/>
+				<a href="<%=request.getContextPath()%>/spitter/new">Create new account</a><br/>
 				<a href="/pwRecover">Forgotten password</a>
 			</div>
 		</form>
