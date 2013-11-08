@@ -13,5 +13,7 @@ public interface SpitterService {
 	
 	public void addFollower(Spitter target, Spitter follower);
 	
-	public List<Integer> loadFollwedSpittersIds(Spitter spitter);
+	public List<Spitter> loadFollowers(Spitter spitter);
+	
+	public List<Spitter> loadFollowed(Spitter spitter);
 }

@@ -58,6 +58,7 @@ public class SpitterController {
 		List<Spittle> spittles = spittleService.loadSpittlesForSpitter(sp);
 		model.addAttribute("spitter", sp);
 		model.addAttribute("spittles", spittles);
+		model.addAttribute("followers", spitterService.loadFollowers(sp));
 		return "/spitter/view";
 	}
 	

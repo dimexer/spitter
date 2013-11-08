@@ -19,6 +19,7 @@
 	href="<%=request.getContextPath()%>/resources/css/style.css" />
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 body {
 	padding-top: 60px;
@@ -44,43 +45,42 @@ body {
 			</div>
 		</div>
 		<div class="right">
-		<div class="spitterInfo">
-			<h3><c:out value="${spitter.fullName}" /></h3>
-			<c:out value="@${spitter.username}" /><br/>
-			<sf:form cssClass="rightElements"  method="POST" action="/spitter-web/spitter/${spitter.username}?follow">
-				<button class="btn">Follow ${spitter.username}</button>
-			</sf:form>
-		</div>
-		<div class="spittles">
-			<ul>
-				<c:forEach var="spittle" items="${spittles}">
-					<s:url value="/spittles/{username}" var="spitter_url">
-						<s:param name="username" value="${spittle.spitter.username}" />
-					</s:url>
-					<li>
-						<!--<span class="spittleListImage"> 
+			<div class="spitterInfo">
+				<h3>
+					<c:out value="${spitter.fullName}" />
+				</h3>
+				<c:out value="@${spitter.username}" />
+				<br />
+				<sf:form cssClass="rightElements" method="POST"
+					action="/spitter-web/spitter/${spitter.username}?follow">
+					<button class="btn">Follow ${spitter.username}</button>
+				</sf:form>
+			</div>
+			<div class="spittles">
+				<ul>
+					<c:forEach var="spittle" items="${spittles}">
+						<s:url value="/spittles/{username}" var="spitter_url">
+							<s:param name="username" value="${spittle.spitter.username}" />
+						</s:url>
+						<li>
+							<!--<span class="spittleListImage"> 
 							<img src=""	width="48" border="0" align="middle">
-						</span>--> 
-						<div class="spitterListText">
-							<div class="spittle-header">
-								<span style="float:right;">
-									<small>
-										<fmt:formatDate	value="${spittle.time}" pattern="dd M" />
+						</span>-->
+							<div class="spitterListText">
+								<div class="spittle-header">
+									<span style="float: right;"> <small> <fmt:formatDate
+												value="${spittle.time}" pattern="dd M" />
 									</small>
-								</span>
-								<span style="float:left;">
-								</span> 
-							<a href="${spitter_url}">
-								<c:out value="${spittle.spitter.fullName}" />
-							</a>
-							<small><c:out value="@${spittle.spitter.username}"/></small>
+									</span> <span style="float: left;"> </span> <a href="${spitter_url}">
+										<c:out value="${spittle.spitter.fullName}" />
+									</a> <small><c:out value="@${spittle.spitter.username}" /></small>
+								</div>
+								<c:out value="${spittle.text}" />
 							</div>
-							<c:out value="${spittle.text}" />
-						</div>
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
 	</div>
 </body>

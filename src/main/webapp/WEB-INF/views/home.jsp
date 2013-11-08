@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -17,6 +18,9 @@
 	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" />
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
 <style type="text/css">
 body {
 	padding-top: 60px;
@@ -26,12 +30,11 @@ body {
 .sidebar-nav {
 	padding: 9px 0;
 }
-
 </style>
 </head>
 <body>
-	<sec:authentication	property="principal" var="user" />
-	
+	<sec:authentication property="principal" var="user" />
+
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -42,12 +45,14 @@ body {
 					- just spit it!</a>
 				<div class="nav-collapse collapse">
 					<p class="navbar-text pull-right">
-						Logged in as <a href="#" class="navbar-link"> ${user.fullName} </a> 
-						(<a href="<%=request.getContextPath()%>/static/j_spring_security_logout">Logout</a>)
+						Logged in as <a href="#" class="navbar-link"> ${user.fullName}
+						</a> (<a
+							href="<%=request.getContextPath()%>/static/j_spring_security_logout">Logout</a>)
 					</p>
 					<ul class="nav">
 						<li class="active"><a href="<%=request.getContextPath()%>/">Home</a></li>
-						<li><a href="<%=request.getContextPath()%>/edit/${user.username}">Profile</a></li>
+						<li><a
+							href="<%=request.getContextPath()%>/edit/${user.username}">Profile</a></li>
 						<li><a href="<%=request.getContextPath()%>/help">Help</a></li>
 						<li><a href="<%=request.getContextPath()%>/about">About</a></li>
 					</ul>
@@ -58,10 +63,8 @@ body {
 	</div>
 	<div id="main" class="container">
 		<h3>Tell your friends what you think...</h3>
-		<sf:form action="/spitter-web/spittle/publish" method="POST" modelAttribute="newSpittle">
-			<sf:textarea path="text" rows="3" cols="50"/><br/>
-			<input class="btn" type="Submit" value="Publish">
-		</sf:form>
+		<textarea rows="3" cols="50"></textarea>
+		<br /> <input id="publish" class="btn" type="Submit" value="Publish">
 		<!-- <h2>A global community of friends and strangers spitting out
 			their inner-most and personal thoughts on the web for everyone else
 			to see.</h2> -->

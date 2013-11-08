@@ -1,6 +1,7 @@
 package com.dimexer.spitter.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -31,10 +32,7 @@ public class SpittleServiceImpl implements SpittleService {
 	}
 
 	public List<Spittle> getSpittleFromLastLogin(Spitter spitter, int size) {
-		List<Integer> followers = spitterService.loadFollwedSpittersIds(spitter);
-		for(int a : followers){
-			System.out.println("Follower:" + a);
-		}
+		/*List<Integer> followers = spitterService.loadFollwers(spitter);
 		String query = null;
 		Object[] params = null;
 		if(spitter == null){
@@ -67,7 +65,8 @@ public class SpittleServiceImpl implements SpittleService {
 			res.add(a);
 		}
 		
-		return res;
+		return res;*/
+		return Collections.emptyList();
 	}
 
 	public List<Spittle> loadSpittlesForSpitter(Spitter spitter) {
