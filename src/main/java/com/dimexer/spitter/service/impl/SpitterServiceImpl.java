@@ -1,6 +1,7 @@
 package com.dimexer.spitter.service.impl;
 
-import java.net.UnknownHostException;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -9,29 +10,28 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 
 import com.dimexer.spitter.model.Spitter;
+import com.dimexer.spitter.model.FollowingRelation;
 import com.dimexer.spitter.service.SpitterService;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
 
 public class SpitterServiceImpl extends NamedParameterJdbcDaoSupport implements
 		SpitterService {
 
+	@Autowired
+	private MongoOperations mongoTemplate;
+
 	public List<Spitter> loadFollowers(Spitter spitter) {
-		return searchFollowings("spitter_uname", spitter.getUsername(),
-				"follower_uname");
+		return this.searchFollowings("spitter_uname", spitter.getUsername());
 	}
 
 	public List<Spitter> loadFollowed(Spitter spitter) {
-		return searchFollowings("follower_uname", spitter.getUsername(),
-				"spitter_uname");
+		return this.searchFollowings("follower_uname", spitter.getUsername());
 	}
 
 	public int addSpitter(Spitter spitter) {
@@ -87,34 +87,23 @@ public class SpitterServiceImpl extends NamedParameterJdbcDaoSupport implements
 		getNamedParameterJdbcTemplate().update(query, params);
 	}
 
-	private List<Spitter> searchFollowings(String searchField,
-			String searchValue, String targetField) {
-		MongoClient mongo = null;
-		try {
-			mongo = new MongoClient();
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+	public MongoOperations getMongoTemplate() {
+		return mongoTemplate;
+	}
+
+	public void setMongoTemplate(MongoOperations mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
+
+	private List<Spitter> searchFollowings(String fieldName, String searchValue) {
+		Query q = new Query(where(fieldName).is(searchValue));
+		List<FollowingRelation> follRels = mongoTemplate.find(q,
+				FollowingRelation.class);
+		if (follRels.size() < 1)
 			return Collections.emptyList();
-		}
 		List<Spitter> followers = new LinkedList<Spitter>();
-		DB db = mongo.getDB("spitter");
-		DBCollection coll = db.getCollection("followings");
-		DBCursor followersUnames = null;
-		try {
-			//get only target field values
-			DBObject q = new BasicDBObject(searchField, searchValue);
-			followersUnames = coll.find(q);
-			while (followersUnames.hasNext()) {
-				String uname = followersUnames.next().get(targetField)
-						.toString();
-				followers.add(findSpitterByUsername(uname));
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			followersUnames.close();
-		}
-		mongo.close();
+		for (FollowingRelation f : follRels)
+			followers.add(this.findSpitterByUsername(f.getSpitterUsername()));
 		return followers;
 	}
 }
