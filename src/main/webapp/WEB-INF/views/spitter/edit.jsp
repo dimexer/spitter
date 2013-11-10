@@ -7,33 +7,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New spitter</title>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/bootstrap-responsive.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" />
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
-
-<style>
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
-
-.sidebar-nav {
-	padding: 9px 0;
-}
-</style>
+<jsp:include page="/WEB-INF/views/includes/htmlhead.jsp" />
 </head>
-
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 	<div id="main" class="container">
 		<h2>Create a free Spitter account</h2>
 		<sf:form method="POST" modelAttribute="spitter">
-		<sf:errors path="*" cssStyle="color:red;"/>
+			<sf:errors path="*" cssStyle="color:red;" />
 			<fieldset>
 				<table cellspacing="0">
 					<tr>

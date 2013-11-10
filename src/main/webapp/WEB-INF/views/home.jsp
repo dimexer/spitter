@@ -10,57 +10,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Spitter</title>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/bootstrap-responsive.min.css" />
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/bootstrap.min.css" />
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
-<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+<jsp:include page="/WEB-INF/views/includes/htmlhead.jsp" />
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
-<style type="text/css">
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
-
-.sidebar-nav {
-	padding: 9px 0;
-}
-</style>
 </head>
 <body>
-	<sec:authentication property="principal" var="user" />
-
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse"
-					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span>
-				</a> <a class="brand" href="<%=request.getContextPath()%>/">Spitter
-					- just spit it!</a>
-				<div class="nav-collapse collapse">
-					<p class="navbar-text pull-right">
-						Logged in as <a href="#" class="navbar-link"> ${user.fullName}
-						</a> (<a
-							href="<%=request.getContextPath()%>/static/j_spring_security_logout">Logout</a>)
-					</p>
-					<ul class="nav">
-						<li class="active"><a href="<%=request.getContextPath()%>/">Home</a></li>
-						<li><a
-							href="<%=request.getContextPath()%>/edit/${user.username}">Profile</a></li>
-						<li><a href="<%=request.getContextPath()%>/help">Help</a></li>
-						<li><a href="<%=request.getContextPath()%>/about">About</a></li>
-					</ul>
-				</div>
-				<!--/.nav-collapse -->
-			</div>
-		</div>
-	</div>
+	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 	<div id="main" class="container">
 		<h3>Tell your friends what you think...</h3>
 		<textarea rows="3" cols="50"></textarea>
