@@ -19,7 +19,7 @@
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 	<div id="main" class="container">
 		<h3>Tell your friends what you think...</h3>
-		<textarea rows="3" cols="50"></textarea>
+		<textarea id="spittleArea" rows="3" cols="50"></textarea>
 		<br /> <input id="publish" class="btn" type="Submit" value="Publish">
 		<!-- <h2>A global community of friends and strangers spitting out
 			their inner-most and personal thoughts on the web for everyone else

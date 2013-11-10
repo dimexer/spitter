@@ -1,13 +1,18 @@
 package com.dimexer.spitter.controller;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.dimexer.spitter.model.Spitter;
 import com.dimexer.spitter.model.Spittle;
@@ -33,6 +38,17 @@ public class SpittleController {
 		spittleService.insertSpittle(spittle);
 		
 		return "redirect:/home";
+	}
+	
+	@RequestMapping(value="/spittle/ajaxpublish", method=RequestMethod.POST)
+	@ResponseStatus(value=HttpStatus.OK)
+	public void publishSpittleAjax(String spittle){
+		Spittle newSpittle = new Spittle();
+		newSpittle.setText(spittle);
+		newSpittle.setTime(new Date());
+		Spitter author = (Spitter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		newSpittle.setSpitter(author);
+		spittleService.insertSpittle(newSpittle);
 	}
 	
 	public SpittleService getSpittleService() {
