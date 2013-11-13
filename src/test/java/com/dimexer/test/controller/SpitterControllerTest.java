@@ -2,7 +2,6 @@ package com.dimexer.test.controller;
 
 import org.junit.Test;
 import org.springframework.ui.ExtendedModelMap;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import static org.junit.Assert.*;

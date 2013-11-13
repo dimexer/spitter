@@ -32,7 +32,8 @@
 				</h3>
 				<c:out value="@${spitter.username}" />
 				<br />
-				<sf:form cssClass="rightElements" method="POST"
+				<img src="<%=request.getContextPath()%>/resources/img/default.png">
+				<sf:form method="POST"
 					action="/spitter-web/spitter/${spitter.username}?follow">
 					<button class="btn">Follow ${spitter.username}</button>
 				</sf:form>

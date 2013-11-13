@@ -24,21 +24,27 @@ small {
 	width: 100%;
 }
 
-.spittles, .spitterInfo {
+.spittles,.spitterInfo {
 	border: 1px solid #DDDDDD;
 	border-radius: 5px 5px 5px 5px;
 	float: left;
 	margin-left: 15px;
 }
 
-.spitterInfo{
+.spitterInfo {
 	border: 1px solid #DDDDDD;
 	border-radius: 5px 5px 5px 5px;
 	float: left;
 	margin-left: 15px;
 	margin-bottom: 15px;
-	width:400px;
+	width: 400px;
 	padding: 5px;
+}
+
+.spitterInfo img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .spittles>ul {
@@ -51,7 +57,7 @@ small {
 	margin-top: -1px;
 }
 
-.spittles>ul>li:HOVER{
+.spittles>ul>li:HOVER {
 	background-color: #EEEEEE;
 }
 
@@ -64,12 +70,11 @@ small {
 	width: 100%;
 }
 
-.rightElements{
+.rightElements {
 	text-align: right;
 }
 
 /***** LOGIN *****/
-
 .login-body {
 	padding-top: 40px;
 	padding-bottom: 40px;
@@ -102,6 +107,6 @@ small {
 }
 
 /***** REGISTRATION *****/
-#regForm tr th label{
+#regForm tr th label {
 	float: left;
 }
