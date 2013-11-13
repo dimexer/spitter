@@ -5,6 +5,7 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,13 +79,11 @@ public class SpitterServiceImpl extends NamedParameterJdbcDaoSupport implements
 	}
 
 	public void addFollower(Spitter target, Spitter follower) {
-		if (target == null || follower == null)
-			return;
-		String query = "insert into followers values(:followedId, :followerId)";
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("followedId", String.valueOf(target.getId()));
-		params.put("followerId", String.valueOf(follower.getId()));
-		getNamedParameterJdbcTemplate().update(query, params);
+		FollowingRelation rel = new FollowingRelation();
+		rel.setFollowerUsername(follower.getUsername());
+		rel.setSpitterUsername(target.getUsername());
+		rel.setFollowSince(new Date());
+		mongoTemplate.insert(rel);
 	}
 
 	public MongoOperations getMongoTemplate() {

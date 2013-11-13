@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.dimexer.spitter.model.Spitter;
 import com.dimexer.spitter.model.Spittle;
@@ -26,7 +28,7 @@ public class SpitterController {
 
 	@Inject
 	private SpittleService spittleService;
-	
+
 	@Inject
 	public SpitterController(SpitterService spitterService) {
 		this.spitterService = spitterService;
@@ -48,9 +50,10 @@ public class SpitterController {
 			model.addAllAttributes(bindingResult.getModel());
 			return "/spitter/new";
 		}
-		
-		if(!spitter.getPassword().equals(spitter.getPasswordRepeat())){
-			bindingResult.addError(new ObjectError("spitter", "Passwods do not match... :("));
+
+		if (!spitter.getPassword().equals(spitter.getPasswordRepeat())) {
+			bindingResult.addError(new ObjectError("spitter",
+					"Passwods do not match... :("));
 			model.addAllAttributes(bindingResult.getModel());
 			return "spitter/new";
 		}
@@ -59,8 +62,9 @@ public class SpitterController {
 		return "redirect:/home";
 	}
 
-	@RequestMapping(value="/spitter/{username}", method=RequestMethod.GET)
-	public String showSpitter(@PathVariable(value="username") String userName, Model model){
+	@RequestMapping(value = "/spitter/{username}", method = RequestMethod.GET)
+	public String showSpitter(
+			@PathVariable(value = "username") String userName, Model model) {
 		Spitter sp = spitterService.findSpitterByUsername(userName);
 		List<Spittle> spittles = spittleService.loadSpittlesForSpitter(sp);
 		model.addAttribute("spitter", sp);
@@ -68,15 +72,15 @@ public class SpitterController {
 		model.addAttribute("followers", spitterService.loadFollowers(sp));
 		return "/spitter/view";
 	}
-	
-	@RequestMapping(value="/spitter/{username}", method=RequestMethod.POST, params="follow")
-	public String followSpitter(@PathVariable(value="username") String username, Model model){
-		Spitter currentSpitter = (Spitter)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Spitter target = spitterService.findSpitterByUsername(username);
+
+	@RequestMapping(value = "/spitter/{targetSpitter}", method = RequestMethod.POST, params = "follow")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void followSpitter(@PathVariable String targetSpitter) {
+		Spitter currentSpitter = (Spitter) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		Spitter target = spitterService.findSpitterByUsername(targetSpitter);
 		spitterService.addFollower(target, currentSpitter);
-		
-		model.addAttribute("spitter", target);
-		return "/spitter/view";
+
 	}
 
 	public SpitterService getSpittleService() {

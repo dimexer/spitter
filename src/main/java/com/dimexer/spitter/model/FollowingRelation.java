@@ -1,5 +1,7 @@
 package com.dimexer.spitter.model;
 
+import java.util.Date;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -12,6 +14,9 @@ public class FollowingRelation {
 	@Field("follower_uname")
 	private String followerUsername;
 
+	@Field("follow_since")
+	private Date followSince;
+	
 	public String getSpitterUsername() {
 		return spitterUsername;
 	}
@@ -26,5 +31,13 @@ public class FollowingRelation {
 
 	public void setFollowerUsername(String followerUsername) {
 		this.followerUsername = followerUsername;
+	}
+
+	public Date getFollowSince() {
+		return followSince;
+	}
+
+	public void setFollowSince(Date followSince) {
+		this.followSince = followSince;
 	}
 }
