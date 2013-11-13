@@ -13,7 +13,7 @@
 <title>Spitter</title>
 <jsp:include page="/WEB-INF/views/includes/htmlhead.jsp" />
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/custom.js"></script>
+	src="<%=request.getContextPath()%>/resources/js/homePage.js"></script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
