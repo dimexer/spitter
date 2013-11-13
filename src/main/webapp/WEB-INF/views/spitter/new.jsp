@@ -13,11 +13,11 @@
 <body>
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
 	<div id="main" class="container">
-		<h2>Create a free Spitter account</h2>
+		<h2>Create free Spitter account</h2>
 		<sf:form method="POST" modelAttribute="spitter">
-			<sf:errors path="*" cssStyle="color:red;" />
+			<sf:errors path="*" cssStyle="color:red;"  />
 			<fieldset>
-				<table cellspacing="0">
+				<table cellspacing="0" id="regForm">
 					<tr>
 						<th><label for="user_full_name">Full name:</label></th>
 						<td><sf:input path="fullName" size="15" id="user_full_name" />
@@ -33,6 +33,11 @@
 						<td><sf:password path="password" size="30"
 								showPassword="true" id="user_password" /> <small>6
 								characters or more</small></td>
+					</tr>
+					<tr>
+						<th><label for="passwordRepeat">Repeat Password:</label></th>
+						<td><sf:password size="30" path="passwordRepeat"
+								showPassword="true" id="passwordRepeat" /></td>
 					</tr>
 					<tr>
 						<th><label for="user_email">EmailAddress:</label></th>

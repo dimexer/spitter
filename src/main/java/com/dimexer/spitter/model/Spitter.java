@@ -21,6 +21,8 @@ public class Spitter implements UserDetails{
 	@Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters long!")
 	private String password;
 
+	private String passwordRepeat;
+	
 	@Size(min = 3, max = 50, message = "Your full name must be between 3 and 50 characters long!")
 	private String fullName;
 
@@ -57,6 +59,14 @@ public class Spitter implements UserDetails{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordRepeat() {
+		return passwordRepeat;
+	}
+
+	public void setPasswordRepeat(String passwordRepeat) {
+		this.passwordRepeat = passwordRepeat;
 	}
 
 	public String getFullName() {

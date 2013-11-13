@@ -18,13 +18,14 @@ public class SpitterControllerTest {
 	public void testGivingEmptySpitterForRegistration(){
 		ExtendedModelMap testModel = new ExtendedModelMap();
 		SpitterController controller = new SpitterController();
-		assertEquals(controller.createFormObject(testModel), "spitter/edit");
+		assertEquals(controller.createFormObject(testModel), "spitter/new");
 		assertNotNull(testModel.get("spitter"));
 	}
 	
 	@Test
 	public void testSavingNewSpitter(){
 		Spitter testSpitter = new Spitter(0, "test","test","test test", "test@test.com", null);
+		testSpitter.setPasswordRepeat("test");
 		SpitterController controller = new SpitterController();
 
 		SpitterService spitterService = mock(SpitterService.class);
@@ -36,7 +37,7 @@ public class SpitterControllerTest {
 		when(bRes.hasErrors()).thenReturn(true);
 		when(bRes.getModel()).thenReturn(null);
 		
-		assertEquals(controller.saveSpitter(testSpitter, bRes, new ExtendedModelMap()), "/spitter/edit");
+		assertEquals(controller.saveSpitter(testSpitter, bRes, new ExtendedModelMap()), "/spitter/new");
 
 		when(bRes.hasErrors()).thenReturn(false);
 		assertEquals(controller.saveSpitter(testSpitter, bRes, new ExtendedModelMap()), "redirect:/home");

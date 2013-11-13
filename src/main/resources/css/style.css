@@ -69,6 +69,7 @@ small {
 }
 
 /***** LOGIN *****/
+
 .login-body {
 	padding-top: 40px;
 	padding-bottom: 40px;
@@ -98,4 +99,9 @@ small {
 	height: auto;
 	margin-bottom: 15px;
 	padding: 7px 9px;
+}
+
+/***** REGISTRATION *****/
+#regForm tr th label{
+	float: left;
 }
